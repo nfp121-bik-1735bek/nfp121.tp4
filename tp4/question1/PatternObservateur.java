@@ -31,6 +31,13 @@ public class PatternObservateur extends junit.framework.TestCase {
         // bons paramètres
 
         // à compléter !!
+        for(String s: new String[]{" 1 ","test"}){
+            assertEquals(l1,o1.senders().pop());
+            assertEquals(l1,o2.senders().pop());
+            assertEquals(s,o1.arguments().pop());
+            assertEquals(s,o2.arguments().pop());
+            
+        }
 
         // ne pas modifier ces lignes, dernières assertions vraies de cette
         // méthode
@@ -55,6 +62,17 @@ public class PatternObservateur extends junit.framework.TestCase {
         // vérifier que l'observateur a bien été notifié par les deux listes
 
         // à compléter !!
+        for(String s: new String[]{" B ","testB"}){
+            assertEquals(l2,o.senders().pop());
+            assertEquals(s,o.arguments().pop());
+        }
+        
+        for(String s: new String[]{" A ","testA"}){
+            assertEquals(l1,o.senders().pop());
+            assertEquals(s,o.arguments().pop());
+        }
+        
+        
 
         // ne pas modifier cette ligne, dernière assertion vraie de cette
         // méthode
@@ -77,6 +95,37 @@ public class PatternObservateur extends junit.framework.TestCase {
         // et deleteObservers()
 
         // à compléter !!
+        
+        assertTrue(l1.countObservers() == 2 && l2.countObservers() == 2);
+        
+        l1.deleteObserver(o1);
+        l1.deleteObserver(o2);
+        l2.deleteObserver(o1);
+        l2.deleteObserver(o2);
+        assertTrue(l1.countObservers() == 0 && l2.countObservers() == 0);
+        
+        l1.insert("test1");
+        l2.insert("test2");
+        assertTrue(o1.senders().isEmpty());
+        assertTrue(o1.arguments().isEmpty());
+        assertTrue(o2.senders().isEmpty());
+        assertTrue(o2.arguments().isEmpty());
+        
+        l1.addObserver(o1);
+        l1.addObserver(o2);
+        l2.addObserver(o1);
+        l2.addObserver(o2);
+        
+        l1.deleteObservers();
+        l2.deleteObservers();
+        l1.insert("test3");
+        l2.insert("test4");
+        assertTrue(o1.senders().empty());
+        assertTrue(o1.arguments().empty());
+        assertTrue(o2.senders().empty());
+        assertTrue(o2.arguments().empty());
+        
+        
 
         // ne pas modifier ces lignes, dernières assertions vraies de cette
         // méthode
